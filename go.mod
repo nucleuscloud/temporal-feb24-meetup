@@ -2,7 +2,10 @@ module github.com/nucleuscloud/temporal-feb24-meetup
 
 go 1.21.6
 
-require go.temporal.io/sdk v1.25.1
+require (
+	github.com/google/uuid v1.3.0
+	go.temporal.io/sdk v1.25.1
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -12,7 +15,6 @@ require (
 	github.com/gogo/status v1.1.1 // indirect
 	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/pborman/uuid v1.2.1 // indirect

@@ -2,6 +2,7 @@ package datagen
 
 import (
 	"fmt"
+	"time"
 
 	"go.temporal.io/sdk/workflow"
 )
@@ -10,7 +11,9 @@ func GenerateData(ctx workflow.Context) (any, error) {
 	logger := workflow.GetLogger(ctx)
 	_ = logger
 
-	ao := workflow.ActivityOptions{}
+	ao := workflow.ActivityOptions{
+		StartToCloseTimeout: 10 * time.Second,
+	}
 
 	var a *Activities
 
