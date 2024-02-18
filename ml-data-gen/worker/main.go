@@ -20,7 +20,7 @@ func main() {
 
 	w := worker.New(
 		temporalclient,
-		"datagen",
+		"mldatagen",
 		worker.Options{},
 	)
 
