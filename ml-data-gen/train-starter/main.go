@@ -22,14 +22,14 @@ func main() {
 	defer c.Close()
 
 	workflowOptions := client.StartWorkflowOptions{
-		ID:                 "mldatagen_" + uuid.NewString(),
+		ID:                 "mldatagen_trainer" + uuid.NewString(),
 		TaskQueue:          "mldatagen",
 		WorkflowRunTimeout: 30 * time.Second,
 	}
 
 	ctx := context.Background()
 
-	we, err := c.ExecuteWorkflow(ctx, workflowOptions, mldatagen.GenerateData)
+	we, err := c.ExecuteWorkflow(ctx, workflowOptions, mldatagen.TrainModel)
 	if err != nil {
 		log.Fatalln("unable to execute workflow", err)
 	}

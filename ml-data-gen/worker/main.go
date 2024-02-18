@@ -24,9 +24,9 @@ func main() {
 		worker.Options{},
 	)
 
-	w.RegisterWorkflow(mldatagen.GenerateData)
-	activities := &mldatagen.Activities{}
-	w.RegisterActivity(activities)
+	w.RegisterWorkflow(mldatagen.TrainModel)
+	w.RegisterWorkflow(mldatagen.SampleModel)
+	w.RegisterActivity(&mldatagen.Activities{})
 
 	err = w.Run(worker.InterruptCh())
 	if err != nil {
