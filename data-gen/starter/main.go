@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"time"
 
 	"github.com/google/uuid"
 	"go.temporal.io/sdk/client"
@@ -21,8 +22,9 @@ func main() {
 	defer c.Close()
 
 	workflowOptions := client.StartWorkflowOptions{
-		ID:        "datagen_" + uuid.NewString(),
-		TaskQueue: "datagen",
+		ID:                 "datagen_" + uuid.NewString(),
+		TaskQueue:          "datagen",
+		WorkflowRunTimeout: 30 * time.Second,
 	}
 
 	ctx := context.Background()
