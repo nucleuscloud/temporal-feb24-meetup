@@ -11,6 +11,8 @@ with workflow.unsafe.imports_passed_through():
                            train_model)
 
 async def main():
+  logging.basicConfig(level=logging.INFO)
+
   client = await Client.connect("localhost:7233")
 
   worker = Worker(
@@ -18,7 +20,7 @@ async def main():
       task_queue="ml",
       activities=[train_model, sample_model],
   )
-  print("running python worker")
+  logging.info("running python worker")
   await worker.run()
 
 if __name__ == "__main__":
