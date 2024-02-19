@@ -3,8 +3,8 @@
 ## General Setup
 
 1. Run `docker compose up -d` to stand up the Temporal suite of services as well as two postgres databases that will be used as our "prod" and "stage" data sources.
-2. See the [data gen readme](./data-gen/readme.md) for info on how to run this demo.
-3. See the [ml data gen readme](./ml-data-gen/readme.md) for info on how to run this demo.
+2. See the [data gen readme](./data-gen/README.md) for info on how to run this demo.
+3. See the [ml data gen readme](./ml-data-gen/README.md) for info on how to run this demo.
 
 ## Data Gen Demo
 
