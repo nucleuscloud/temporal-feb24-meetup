@@ -28,15 +28,9 @@ func (a *Activities) SynchronizeTable(
 	config string,
 ) error {
 	logger := activity.GetLogger(ctx)
-	streambldr := service.NewStreamBuilder()
-	err := streambldr.SetYAML(config)
+	stream, err := getStreamFromConfig(config)
 	if err != nil {
-		return fmt.Errorf("unable to set yaml for sync: %w", err)
-	}
-
-	stream, err := streambldr.Build()
-	if err != nil {
-		return fmt.Errorf("unable to build stream for sync: %w", err)
+		return err
 	}
 
 	err = stream.Run(ctx)
@@ -45,4 +39,18 @@ func (a *Activities) SynchronizeTable(
 	}
 	logger.Info("SynchronizeTable activity completed successfully")
 	return nil
+}
+
+func getStreamFromConfig(config string) (*service.Stream, error) {
+	streambldr := service.NewStreamBuilder()
+	err := streambldr.SetYAML(config)
+	if err != nil {
+		return nil, fmt.Errorf("unable to set yaml for sync: %w", err)
+	}
+
+	stream, err := streambldr.Build()
+	if err != nil {
+		return nil, fmt.Errorf("unable to build stream for sync: %w", err)
+	}
+	return stream, nil
 }

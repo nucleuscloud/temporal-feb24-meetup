@@ -17,6 +17,8 @@ func GenerateData(ctx workflow.Context) (any, error) {
 
 	var a *Activities
 
+	// Executes first activity to retrieve data generation config
+	// This will contain info like the database connection, as well as how many items to generate and each method to run per column
 	var genConfig string
 	err := workflow.ExecuteActivity(
 		workflow.WithActivityOptions(ctx, ao),
@@ -26,6 +28,7 @@ func GenerateData(ctx workflow.Context) (any, error) {
 		return nil, fmt.Errorf("unable to execute GetGenerateConfig: %w", err)
 	}
 
+	// Executes the second activity that takes this configuration and simply runs it against the destination data source
 	err = workflow.ExecuteActivity(
 		workflow.WithActivityOptions(ctx, ao),
 		a.SynchronizeTable,
