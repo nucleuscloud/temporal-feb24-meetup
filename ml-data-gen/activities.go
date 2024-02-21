@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS %s (
 	gender text not null,
 	age int not null,
 	ssn text not null,
-	password_hash text not null,
+	password_hash text not null
 );
 TRUNCATE TABLE %s;
 	`, table, table))
