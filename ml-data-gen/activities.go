@@ -30,7 +30,7 @@ func (a *Activities) GetTrainInput() (*GetTrainInputResponse, error) {
 	return &GetTrainInputResponse{
 		TrainModelRequest{
 			Epochs:          1,
-			DiscreteColumns: []string{"id", "created_at", "updated_at", "first_name", "last_name"},
+			DiscreteColumns: []string{"id", "created_at", "updated_at", "first_name", "last_name", "email", "gender", "ssn", "password_hash"},
 			ModelPath:       "/tmp/temporal-demo-model.pkl",
 			Dsn:             "postgresql://postgres:postgres@localhost:5434/neosync?sslmode=disable",
 			Schema:          "public",
@@ -41,6 +41,11 @@ func (a *Activities) GetTrainInput() (*GetTrainInputResponse, error) {
 				"updated_at",
 				"first_name",
 				"last_name",
+				"email",
+				"gender",
+				"age",
+				"ssn",
+				"password_hash",
 			},
 		},
 	}, nil
@@ -88,7 +93,12 @@ CREATE TABLE IF NOT EXISTS %s (
 	created_at timestamp without time zone DEFAULT now() NOT NULL,
 	updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	first_name varchar NOT NULL,
-	last_name varchar NOT NULL
+	last_name varchar NOT NULL,
+	email text not null,
+	gender text not null,
+	age int not null,
+	ssn text not null,
+	password_hash text not null,
 );
 TRUNCATE TABLE %s;
 	`, table, table))

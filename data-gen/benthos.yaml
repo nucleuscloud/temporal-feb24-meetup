@@ -8,24 +8,45 @@ input:
         "created_at": now(),
         "updated_at": now(),
         "first_name": fake("first_name"),
-        "last_name": fake("last_name")
+        "last_name": fake("last_name"),
+        "email": fake("email"),
+        "gender": fake("gender"),
+        "age": random_int(min:21, max:100),
+        "ssn": generate_ssn(),
+        "password_hash": generate_sha256hash()
       }
 pipeline:
   threads: -1
   processors: []
 output:
   label: ""
-  sql_raw:
+  sql_insert:
     driver: postgres
     dsn: postgres://postgres:postgres@localhost:5434/neosync?sslmode=disable
-    query: "INSERT INTO public.users (id, created_at, updated_at, first_name, last_name) VALUES ($1, $2, $3, $4, $5)"
-    args_mapping: root = [this.id, this.created_at, this.updated_at, this.first_name, this.last_name]
+    table: public.users
+    columns:
+      - id
+      - created_at
+      - updated_at
+      - first_name
+      - last_name
+      - email
+      - gender
+      - age
+      - ssn
+      - password_hash
+    args_mapping: root = [this.id, this.created_at, this.updated_at, this.first_name, this.last_name, this.email, this.gender, this.age, this.ssn, this.password_hash]
     init_statement: |
       CREATE TABLE IF NOT EXISTS public.users (
         id text DEFAULT gen_random_uuid() NOT NULL,
         created_at timestamp without time zone DEFAULT now() NOT NULL,
         updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
         first_name varchar NOT NULL,
-        last_name varchar NOT NULL
+        last_name varchar NOT NULL,
+        email text not null,
+        gender text not null,
+        age int not null,
+        ssn text not null,
+        password_hash text not null,
       );
       TRUNCATE TABLE public.users;

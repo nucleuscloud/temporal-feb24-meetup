@@ -8,6 +8,7 @@ import (
 	_ "github.com/benthosdev/benthos/v4/public/components/pure"
 	_ "github.com/benthosdev/benthos/v4/public/components/pure/extended"
 	_ "github.com/benthosdev/benthos/v4/public/components/sql"
+	_ "github.com/nucleuscloud/temporal-feb24-meetup/data-gen/transformers"
 
 	"github.com/benthosdev/benthos/v4/public/service"
 	"go.temporal.io/sdk/activity"
